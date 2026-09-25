@@ -8,13 +8,37 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import base64
 import hashlib
+import requests
+import sys
+import sqlite3
 import time
-from threading import Thread
-import textwrap
 
 
 TOKEN = "y0__wgBEI7P1rsHGK2tPyCepcn2GDC9-KLlB2T1Lktn2skHCpc2GgPqFTFZtbvB"
 client = yadisk.Client(token=TOKEN)
+
+def check_vpn_ipapi():
+    try:
+        response = requests.get('http://ip-api.com/json/', timeout=10)
+        data = response.json()
+        
+        if data.get('status') == 'success':
+            ip = data.get('query')
+            country = data.get('country')
+            org = data.get('isp')
+            city = data.get('city')
+            
+            # Проверка на прокси/VPN (если есть данные)
+            is_proxy = data.get('proxy', False)
+            is_hosting = data.get('hosting', False)
+            
+            return ip, country, org, is_proxy, is_hosting
+        else:
+            return None, None, None, False, False
+        
+    except Exception as e:
+        print(f"Ошибка ip-api: {e}")
+        return None, None, None, False, False
 
 SALT_SIZE = 16
 NONCE_SIZE = 12
@@ -23,7 +47,6 @@ PASSWORD_ENC = "DG2rUstjFxkhC2XlZT1c9DHjp82T0QDe7hvClJ1hKNweC1+9gz5FQl7GRmARr4Yf
 CHECK_ENC = "UwhNS1km4aoePVfrIfCz2bR3LJcLRsnw0alwVqYRDSqKBbpihdmJsNtMyEpaWAZJw5Ts"
 
 FOLDER = "lms_msgr_kdtm"
-FOLDER_USERS_LIST = "lms_msgr_kdtm_u"
 
 master_password = "0"
 
@@ -77,7 +100,7 @@ def decrypt(b64_text, password):
         
         return AESGCM(key).decrypt(nonce, ciphertext, None)
     except Exception as e:
-        raise e
+        return json.dumps({"filename":"errdec.n", "data":{"version":"0", "data":[["title", {"text":"Ошибка"}], ["label", {"text":f"Ошибка дешифрования {e}"}]]}}).encode()
 
 def listdir(dirname:str, dirs = False):
     if client.exists(dirname):
@@ -108,37 +131,15 @@ def create_file(filename:str, data:str):
         client.upload(buffer, filename)
         return True
 
-def enocde_safe_filename(text:str):
-    text = text.replace("/", "_")
-    text = text.replace("+", "-")
-    return text
 
-def decode_safe_filename(text:str):
-    text = text.replace("_", "/")
-    text = text.replace("-", "+")
-    return text
 
 def SEND(message_text:str, to_user_id:str, my_user_id:str):
-    
-
-    wraped = False
-    wraped_message = textwrap.wrap(message_text, 50)
-    if len(wraped_message) > 1:
-        wraped = True
-    wraped_message = list(map(lambda x: f"{x}{int(wraped)}" , wraped_message))
-
-    users_list = get_all_user_ids()
-    
+    file_name = f"{my_user_id}|{time.time()}"
     if client.exists(FOLDER):
-        if to_user_id in users_list:
-            if my_user_id in users_list:
-                for message_part in wraped_message:
-                    file_name = f"{my_user_id}|{time.time()}|{enocde_safe_filename(encrypt(message_part.encode(), get_password()))}"
-                    create_file(f"{FOLDER}/{to_user_id}/{file_name}", "")
-            else:
-                return ValueError(f"user {my_user_id} not found")
+        if client.exists(f"{FOLDER}/{to_user_id}"):
+            create_file(f"{FOLDER}/{to_user_id}/{file_name}", message_text)
         else:
-            return ValueError(f"user {to_user_id} not found")
+            return ValueError(f"Folder {FOLDER}/{to_user_id} not found")
     else:
         return ValueError(f"Folder {FOLDER} not found")
 
@@ -147,18 +148,13 @@ def GET(my_user_id:str, split_time = 0, auto_del = False):
     result = {}
     for message in list_messages_not_parsed:
             if "|" in message:
-                if len(message.split("|")) == 3:
+                if len(message.split("|")) == 2:
+                    from_userid = message.split("|")[0]
                     timestmp = float(message.split("|")[1])
                     if timestmp >= split_time:
-                        from_userid = message.split("|")[0]
-                        
-                        data = decrypt(decode_safe_filename(message.split("|")[2]), get_password()).decode()
-
-                        if auto_del:
-                            client.remove(f"{FOLDER}/{my_user_id}/{message}")
                         if not from_userid in result.keys():
                             result[from_userid] = []
-                        result[from_userid].append([timestmp, data])
+                        result[from_userid].append([timestmp, get_file_data(f"{FOLDER}/{my_user_id}/{message}")])
                     else:
                         continue
                 else:
@@ -167,69 +163,5 @@ def GET(my_user_id:str, split_time = 0, auto_del = False):
                 continue
     return result
 
-
-def get_all_user_ids():
-    return listdir(FOLDER)
-
-def get_users_list():
-    try:
-        return list(map(lambda x: (x.split("|")[0], x.split("|")[1]), listdir(FOLDER_USERS_LIST)))
-    except Exception as e:
-        raise e
-
-def get_usernames_list():
-    try:
-        return list(map(lambda x: x.split("|")[0], listdir(FOLDER_USERS_LIST)))
-    except Exception as e:
-        raise e
-
-def create_user(username:str, description = "", avatar = "👤"):
-    st_time = time.time()
-    username = username.replace("|", "")
-    if username in get_usernames_list():
-        raise ValueError(f"{username} уже используется")
-    list_users = get_all_user_ids()
-    count = 10
-    while str(count) in list_users:
-        if count > 99:
-            raise ValueError("Создать аккаунт невозможно, все ID с 10 до 99 заняты")
-        count += 1
-    client.mkdir(f"{FOLDER}/{count}")
-    client.mkdir(f"{FOLDER}/{count}/userinfo")
-    t1 = Thread(target = lambda : create_file(f"{FOLDER}/{count}/userinfo/user.json", json.dumps({"user_id":str(count),"username":username, "description":description, "avatar":avatar})))
-    t2 = Thread(target = lambda : create_file(f"{FOLDER}/{count}/userinfo/last_change", str(time.time())))
-    t3 = Thread(target = lambda : create_file(f"{FOLDER_USERS_LIST}/{username}|{count}", " "))
-    t1.start()
-    t2.start()
-    t3.start()
-    t1.join()
-    t2.join()
-    t3.join()
-
-    print(time.time()-st_time)
-    return count
-
-def get_user_info(user_id:str, last_update_time:float = None):
-    """
-    Поулчает информацию о пользователе/группе(в будущем)
-    Если не указывать время последнего обновления информации о юзере в локальной бд то возвращает True и инфу о пользователе 
-    Иначе возвращает True/False в зависимости от того обновлялась ли инфа после указонного времени последего обновления в локальной бд и сами данные (в случае False {})
-    данные в таком виде (словарь)
-    {"user_id":id[str],"username":username[str], "description":description[str], "avatar":avatar[str]}
-    """
-    if user_id in get_all_user_ids():
-        last_change_time = float(get_file_data(f"{FOLDER}/{user_id}/userinfo/last_change"))
-        if last_update_time != None:
-            if last_change_time > last_update_time:
-
-                userinfo = json.loads(get_file_data(f"{FOLDER}/{user_id}/userinfo/user.json"))
-                
-                return True, userinfo
-            else:
-                return False, {}
-        else:
-            userinfo = json.loads(get_file_data(f"{FOLDER}/{user_id}/userinfo/user.json"))
-                
-            return True, userinfo
-    else:
-        raise ValueError(f"{user_id} Даник долбаеб")
+            
+    
