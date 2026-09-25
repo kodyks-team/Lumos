@@ -30,7 +30,7 @@ class ChatListItem(QWidget):
                 background: {avatar_color};
                 color: white;
                 border-radius: 22px;
-                font-size: 36px;
+                font-size: 18px;
                 font-weight: bold;
             }}
         """)
@@ -45,7 +45,7 @@ class ChatListItem(QWidget):
         self.name_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 10px;
+                font-size: 14px;
                 font-weight: bold;
             }
         """)
@@ -391,40 +391,40 @@ class MainWindow(QMainWindow):
         
         # ===== ДАННЫЕ ЧАТОВ =====
         self.chats_data = [
-            {"user_id": "user1", "name": "💠Архив", "last": "Потом придумаю чатик...", "color": "#000000",
+            {"user_id": "user1", "name": "Архив", "last": "Потом придумаю чатик...", "color": "#4CAF50",
              "messages": [("Привет! Это архив", False), ("Тут старые сообщения", False)]},
             
-            {"user_id": "user2", "name": "⚗️Velum VPN", "last": "Я Ваш личный бот и помощник", "color": "#000000",
+            {"user_id": "user2", "name": "Velum VPN", "last": "Я Ваш личный бот и помощник", "color": "#2196F3",
              "messages": [("Я Ваш личный бот и помощник Velum VPN", False), ("Чем могу помочь?", False)]},
             
-            {"user_id": "user3", "name": "💎MooBot", "last": "lerks купил у тебя 6790 монет", "color": "#000000",
+            {"user_id": "user3", "name": "MooBot", "last": "lerks купил у тебя 6790 монет", "color": "#9C27B0",
              "messages": [("lerks купил у тебя 4 монеты", False), ("+ 6790 монет зачислено", False)]},
             
-            {"user_id": "user4", "name": "🧲Максим Кац", "last": "Пока армия России заявляет...", "color": "#000000",
+            {"user_id": "user4", "name": "Максим Кац", "last": "Пока армия России заявляет...", "color": "#FF5722",
              "messages": [("Пока армия России заявляет о псевдозахватах,", False), ("мы продолжаем работу", False)]},
             
-            {"user_id": "user5", "name": "🥨.......", "last": "Страшновато как то", "color": "#000000",
+            {"user_id": "user5", "name": ".......", "last": "Страшновато как то", "color": "#f44336",
              "messages": [("Страшновато как то", True)]},
             
-            {"user_id": "user6", "name": "🫒Виталя Фишер", "last": "Отменённый звонок", "color": "#000000",
+            {"user_id": "user6", "name": "Виталя Фишер", "last": "Отменённый звонок", "color": "#795548",
              "messages": [("Отменённый звонок", False)]},
             
-            {"user_id": "user7", "name": "🌜2 отряд", "last": "Голосовое сообщение", "color": "#000000",
+            {"user_id": "user7", "name": "2 отряд", "last": "Голосовое сообщение", "color": "#607D8B",
              "messages": [("ебя", False), ("Голосовое сообщение", False)]},
             
-            {"user_id": "user8", "name": "⭐️Чат KODUKS TEAM", "last": "Валентин: Не скажу, думай сам", "color": "#000000",
+            {"user_id": "user8", "name": "Чат KODUKS TEAM", "last": "Валентин: Не скажу, думай сам", "color": "#FF9800",
              "messages": [("Валентин: Не скажу, думай сам", False)]},
             
-            {"user_id": "user9", "name": "🙃KODUKS TEAM", "last": "Есть идеи, есть мысли...", "color": "#000000",
+            {"user_id": "user9", "name": "KODUKS TEAM", "last": "Есть идеи, есть мысли...", "color": "#00BCD4",
              "messages": [("Есть идеи, есть мысли и скорее всего будут изм...", False)]},
             
-            {"user_id": "user10", "name": "😃lisiу dankar", "last": "Короче 3 и 4 за зачет...", "color": "#000000",
+            {"user_id": "user10", "name": "lisiу dankar", "last": "Короче 3 и 4 за зачет...", "color": "#E91E63",
              "messages": [("Короче 3 и 4 за зачет, самое страшное это когда...", False)]},
             
-            {"user_id": "user11", "name": "🧽Валентин", "last": "Входящий звонок", "color": "#000000",
+            {"user_id": "user11", "name": "Валентин", "last": "Входящий звонок", "color": "#8BC34A",
              "messages": [("Входящий звонок", False)]},
             
-            {"user_id": "user12", "name": "🪣Pavel Durov", "last": "Telegram has become the sponsor", "color": "#000000",
+            {"user_id": "user12", "name": "Pavel Durov", "last": "Telegram has become the sponsor", "color": "#03A9F4",
              "messages": [("Telegram has become the sponsor of Codef...", False)]},
         ]
         
@@ -437,7 +437,7 @@ class MainWindow(QMainWindow):
         # Открываем первый чат
         if self.chats_data:
             self.open_chat(self.chats_data[0]["user_id"])
-  
+    
     def _populate_chats(self):
         """Заполняет список чатов и создает для каждого виджет"""
         for chat in self.chats_data:
