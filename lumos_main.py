@@ -1,37 +1,35 @@
 import sys
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QSizePolicy
 from MainWindow import Ui_MainWindow
 from PySide6.QtCore import QSize
 
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, fullscreen=False):
+    def __init__(self):
         super().__init__()
+
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.ui.SettingsBtn.setFixedSize(40, 40)
+        self.ui.SettingsBtn.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
+        self.ui.SettingsBtn.setIconSize(QSize(40, 40))
+        self.ui.SettingsBtn.clicked.connect(self.on_settings_clicked)
+
+        self.ui.ChatSearch.setFixedHeight(40)
         self.ui.ChatSearch.textChanged.connect(self.on_search)
+
+    def on_settings_clicked(self):
+        print("Настройки открыты")
 
     def on_search(self, text: str):
         print("Поиск Чата:", text)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
-
-        size = int(min(self.ui.SettingsBtn.width(),
-                       self.ui.SettingsBtn.height()) * 0.67)
-
-        self.ui.SettingsBtn.setIconSize(
-            QSize(size, size)
-        )
-
-        size = max(12, int(self.width() * 0.02))
-
-        font = QFont()
-        font.setPointSize(size)
-        self.ui.ChatSearch.setFont(font)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F11:
