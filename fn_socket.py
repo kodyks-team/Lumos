@@ -9,9 +9,8 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import base64
 import hashlib
 import requests
-import sys
-import sqlite3
-import time
+from datetime import datetime
+
 
 
 TOKEN = "y0__wgBEI7P1rsHGK2tPyCepcn2GDC9-KLlB2T1Lktn2skHCpc2GgPqFTFZtbvB"
@@ -134,7 +133,9 @@ def create_file(filename:str, data:str):
 
 
 def SEND(message_text:str, to_user_id:str, my_user_id:str):
-    file_name = f"{my_user_id}|{time.time()}"
+    now = datetime.now()
+    time_now = now.strftime("%d/%m/%Y")     #Время в формате ДД/ММ/ГГГГ
+    file_name = f"{my_user_id}|{time_now}"
     if client.exists(FOLDER):
         if client.exists(f"{FOLDER}/{to_user_id}"):
             create_file(f"{FOLDER}/{to_user_id}/{file_name}", message_text)
@@ -143,15 +144,20 @@ def SEND(message_text:str, to_user_id:str, my_user_id:str):
     else:
         return ValueError(f"Folder {FOLDER} not found")
 
-def GET(my_user_id:str, split_time = 0, auto_del = False):
+def GET(my_user_id:str, split_time = "01/03/2000", auto_del = False): #split_time тоже в формате ДД/ММ/ГГГГ
     list_messages_not_parsed = listdir(f"{FOLDER}/{my_user_id}")
     result = {}
     for message in list_messages_not_parsed:
             if "|" in message:
                 if len(message.split("|")) == 2:
                     from_userid = message.split("|")[0]
-                    timestmp = float(message.split("|")[1])
-                    if timestmp >= split_time:
+
+                    timestmp = message.split("|")[1]    #Время в формате ДД/ММ/ГГГГ
+
+                    time_split_converted = datetime.strptime(split_time, "%d/%m/%Y")
+                    time_sended_converted = datetime.strptime(timestmp, "%d/%m/%Y")
+
+                    if time_sended_converted >= time_split_converted:
                         if not from_userid in result.keys():
                             result[from_userid] = []
                         result[from_userid].append([timestmp, get_file_data(f"{FOLDER}/{my_user_id}/{message}")])
