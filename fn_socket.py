@@ -8,9 +8,10 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import base64
 import hashlib
+import time
 from threading import Thread
 import textwrap
-from datetime import datetime
+
 
 TOKEN = "y0__wgBEI7P1rsHGK2tPyCepcn2GDC9-KLlB2T1Lktn2skHCpc2GgPqFTFZtbvB"
 client = yadisk.Client(token=TOKEN)
@@ -27,7 +28,6 @@ FOLDER_USERS_LIST = "lms_msgr_kdtm_u"
 master_password = "0"
 
 def check_password(password: str) -> bool:
-    """Проверяет, правильный ли пароль"""
     try:
         result = decrypt(CHECK_ENC, get_master_password(password)).decode()
         return result == "FreeNet"
@@ -118,10 +118,7 @@ def decode_safe_filename(text:str):
     return text
 
 def SEND(message_text:str, to_user_id:str, my_user_id:str):
-    now = datetime.now()
-
-    # Формат дд/мм/гггг
-    formatted_time = now.strftime("%d/%m/%Y")
+    
 
     wraped = False
     wraped_message = textwrap.wrap(message_text, 50)
@@ -135,7 +132,7 @@ def SEND(message_text:str, to_user_id:str, my_user_id:str):
         if to_user_id in users_list:
             if my_user_id in users_list:
                 for message_part in wraped_message:
-                    file_name = f"{my_user_id}|{formatted_time}|{enocde_safe_filename(encrypt(message_part.encode(), get_password()))}"
+                    file_name = f"{my_user_id}|{time.time()}|{enocde_safe_filename(encrypt(message_part.encode(), get_password()))}"
                     create_file(f"{FOLDER}/{to_user_id}/{file_name}", "")
             else:
                 return ValueError(f"user {my_user_id} not found")
@@ -144,14 +141,13 @@ def SEND(message_text:str, to_user_id:str, my_user_id:str):
     else:
         return ValueError(f"Folder {FOLDER} not found")
 
-def GET(my_user_id:str, split_time = "01.01.2000", auto_del = False):# split_time Формат дд/мм/гггг
+def GET(my_user_id:str, split_time = 0, auto_del = False):
     list_messages_not_parsed = listdir(f"{FOLDER}/{my_user_id}")
     result = {}
     for message in list_messages_not_parsed:
             if "|" in message:
                 if len(message.split("|")) == 3:
-                    timestmp = message.split("|")[1] # Формат дд/мм/гггг
-
+                    timestmp = float(message.split("|")[1])
                     if timestmp >= split_time:
                         from_userid = message.split("|")[0]
                         
