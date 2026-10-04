@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QIcon
 from PySide6.QtCore import Qt
 from PySide6.QtCore import QSize
 from PySide6.QtWidgets import QApplication, QMainWindow, QSizePolicy, QWidget
@@ -48,6 +48,7 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
+    app.setDesktopFileName("lumos")
 
     window = MainWindow()
     window.show()

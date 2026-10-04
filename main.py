@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     authorization()
 
-    if 0:
+    if 1:
         create_user("lisiy_", "На круглой планете летает круглый ветер")
         create_user("kodyks", "На круглой планете летает круглый ветер")
         print(get_usernames_list())
