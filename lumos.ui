@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="cursor">
    <cursorShape>UpArrowCursor</cursorShape>
   </property>
@@ -103,9 +109,9 @@ border: none;</string>
             <item>
              <widget class="QPushButton" name="SettingsBtn">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>40</horstretch>
+                <verstretch>40</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
@@ -157,7 +163,7 @@ background-color: rgba(50, 50, 50, 90);
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="lumos.qrc">
+               <iconset resource="../Lumos/lumos.qrc">
                 <normaloff>:/icons/assets/svg/settings.svg</normaloff>:/icons/assets/svg/settings.svg</iconset>
               </property>
               <property name="iconSize">
@@ -356,7 +362,7 @@ border-radius: 10px;</string>
   </widget>
  </widget>
  <resources>
-  <include location="lumos.qrc"/>
+  <include location="../Lumos/lumos.qrc"/>
  </resources>
  <connections/>
 </ui>

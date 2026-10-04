@@ -25,6 +25,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(800, 600)
+        MainWindow.setMinimumSize(QSize(800, 600))
         MainWindow.setCursor(QCursor(Qt.CursorShape.UpArrowCursor))
         MainWindow.setStyleSheet(u"background: qlineargradient(\n"
 "    x1:0, y1:0, x2:0, y2:1,\n"
@@ -70,7 +71,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(40)
         sizePolicy.setHeightForWidth(self.SettingsBtn.sizePolicy().hasHeightForWidth())
         self.SettingsBtn.setSizePolicy(sizePolicy)
-        self.SettingsBtn.setFixedSize(40, 40)
+        self.SettingsBtn.setMinimumSize(QSize(40, 40))
+        self.SettingsBtn.setMaximumSize(QSize(16777215, 16777215))
         self.SettingsBtn.setSizeIncrement(QSize(0, 0))
         self.SettingsBtn.setBaseSize(QSize(0, 0))
         self.SettingsBtn.setContextMenuPolicy(Qt.ActionsContextMenu)
@@ -78,6 +80,7 @@ class Ui_MainWindow(object):
         self.SettingsBtn.setStyleSheet(u"QPushButton {\n"
 "background-color: rgba(50, 50, 50, 60);\n"
 "border-radius: 10px;\n"
+"icon-size: auto;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -116,8 +119,8 @@ class Ui_MainWindow(object):
 
         self.Chats_LayoutH.addWidget(self.ChatSearch)
 
-        self.Chats_LayoutH.setStretch(0, 0)
-        self.Chats_LayoutH.setStretch(1, 1)
+        self.Chats_LayoutH.setStretch(0, 1)
+        self.Chats_LayoutH.setStretch(1, 4)
 
         self.verticalLayout.addLayout(self.Chats_LayoutH)
 
