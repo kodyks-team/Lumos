@@ -60,7 +60,6 @@ def get_chat_name(chat_id:str):
         cursor.execute("SELECT chat_name FROM chats WHERE chat_id = ?", (chat_id,))
         chat_name = cursor.fetchone()
 
-        db.commit()
         db.close()
         return chat_name[0]
 
@@ -91,7 +90,6 @@ def get_chat_description(chat_id:str):
         cursor.execute("SELECT chat_description FROM chats WHERE chat_id = ?", (chat_id,))
         chat_description = cursor.fetchone()
 
-        db.commit()
         db.close()
         return chat_description[0]
 
@@ -122,7 +120,6 @@ def get_chat_avatar(chat_id:str):
         cursor.execute("SELECT avatar FROM chats WHERE chat_id = ?", (chat_id,))
         chat_description = cursor.fetchone()
 
-        db.commit()
         db.close()
         return chat_description[0]
 
@@ -184,6 +181,8 @@ def del_all_messages_in_chat(chat_id:str):
         if int(chat_id) >= 0:
 
             cursor.execute("DELETE FROM messages WHERE sender_id = ?", (chat_id,))
+            db.commit()
+            db.close()
 
 
         else:

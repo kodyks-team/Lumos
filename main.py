@@ -89,6 +89,5 @@ if __name__ == "__main__":
         print(get_usernames_list())
 
     #SEND("hello world this is big text. text am being written by me in 2026. 17th september. пупупупупууппупупупупупупуппупупп", to_user_id= "10", my_user_id="11")
-    print(GET("10"))
-    
-    #sys.exit(app.exec())
+
+    #sys.exit(pp.exec())
