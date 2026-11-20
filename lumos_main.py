@@ -1,9 +1,10 @@
 import sys
 from PySide6.QtGui import QFont, QIcon
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QSizePolicy
-from MainWindow import Ui_MainWindow
 from PySide6.QtCore import QSize
+from PySide6.QtWidgets import QApplication, QMainWindow, QSizePolicy, QWidget
+from MainWindow import Ui_MainWindow
+from LumosSettings import Ui_SettingsWidget
 
 
 
@@ -23,7 +24,10 @@ class MainWindow(QMainWindow):
         self.ui.ChatSearch.textChanged.connect(self.on_search)
 
     def on_settings_clicked(self):
-        print("Настройки открыты")
+        self.setting_widget = QWidget()
+        self.settings_ui = Ui_SettingsWidget()
+        self.settings_ui.setupUi(self.setting_widget)
+        self.setting_widget.show()
 
     def on_search(self, text: str):
         print("Поиск Чата:", text)

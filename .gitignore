@@ -1,0 +1,12 @@
+__pycache__/
+.Lumos/
+.git/
+build/
+dist/
+*.key
+.env
+.vscode/
+.idea/
+*.pyc1
+ui_to_py.py
+test_ui.py
