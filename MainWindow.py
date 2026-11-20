@@ -19,12 +19,14 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QLayout, QLineEdit, QMainWindow, QPushButton,
     QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 import lumos_rc
+import lumos_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(800, 600)
+        MainWindow.setMinimumSize(QSize(800, 600))
         MainWindow.setCursor(QCursor(Qt.CursorShape.UpArrowCursor))
         MainWindow.setStyleSheet(u"background: qlineargradient(\n"
 "    x1:0, y1:0, x2:0, y2:1,\n"
@@ -65,9 +67,9 @@ class Ui_MainWindow(object):
         self.Chats_LayoutH.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.SettingsBtn = QPushButton(self.ChatsFrame)
         self.SettingsBtn.setObjectName(u"SettingsBtn")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(40)
+        sizePolicy.setVerticalStretch(40)
         sizePolicy.setHeightForWidth(self.SettingsBtn.sizePolicy().hasHeightForWidth())
         self.SettingsBtn.setSizePolicy(sizePolicy)
         self.SettingsBtn.setMinimumSize(QSize(40, 40))
@@ -90,7 +92,7 @@ class Ui_MainWindow(object):
 "background-color: rgba(50, 50, 50, 90);\n"
 "}")
         icon = QIcon()
-        icon.addFile(u":/icons/assets/svg/settings.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/svg_icons/assets/svg/settings.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.SettingsBtn.setIcon(icon)
         self.SettingsBtn.setIconSize(QSize(40, 40))
         self.SettingsBtn.setCheckable(False)
@@ -168,7 +170,6 @@ class Ui_MainWindow(object):
         self.ChatLayoutH.addItem(self.ChatSpacerRight)
 
         self.ChatLayoutH.setStretch(0, 1)
-        self.ChatLayoutH.setStretch(1, 60)
         self.ChatLayoutH.setStretch(2, 1)
 
         self.verticalLayout_2.addLayout(self.ChatLayoutH)
@@ -207,6 +208,6 @@ class Ui_MainWindow(object):
         self.ChatSearch.setInputMask("")
         self.ChatSearch.setText("")
         self.ChatSearch.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\U0001f50d \U0000041d\U00000430\U00000439\U00000442\U00000438 \U00000427\U00000430\U00000442", None))
-        self.ChatInfo.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:18pt; font-weight:600; color:#383838;\">\u0427\u0430\u0442 \u043f\u043e\u043a\u0430-\u0447\u0442\u043e \u043d\u0435 \u043e\u0442\u043a\u0440\u044b\u0442 </span><img src=\":/icons/assets/svg/no_emotion.svg\"/></p></body></html>", None))
+        self.ChatInfo.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:18pt; font-weight:600; color:#383838;\">\u0427\u0430\u0442 \u043f\u043e\u043a\u0430-\u0447\u0442\u043e \u043d\u0435 \u043e\u0442\u043a\u0440\u044b\u0442 </span><img src=\":/svg_icons/assets/svg/no_emotion.svg\"/></p></body></html>", None))
     # retranslateUi
 

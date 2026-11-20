@@ -21,7 +21,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
 import lumos_rc
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow: QMainWindow):
+    def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(800, 600)
@@ -34,10 +34,6 @@ class Ui_MainWindow(object):
 "    stop:1 #00ced1\n"
 ");\n"
 "font-family: Lucida Suns Unicode;")
-
-        MainWindow.setWindowIcon(QIcon("assets/svg/lumos_icon.svg"))
-        MainWindow.setIconSize(QSize(64, 64))
-        
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -173,7 +169,6 @@ class Ui_MainWindow(object):
         self.ChatLayoutH.addItem(self.ChatSpacerRight)
 
         self.ChatLayoutH.setStretch(0, 1)
-        self.ChatLayoutH.setStretch(1, 60)
         self.ChatLayoutH.setStretch(2, 1)
 
         self.verticalLayout_2.addLayout(self.ChatLayoutH)

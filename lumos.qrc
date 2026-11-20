@@ -1,9 +1,13 @@
 <RCC>
-  <qresource prefix="icons">
+  <qresource prefix="svg_icons">
     <file>assets/svg/chat_add_on.svg</file>
-    <file>assets/backgrounds/wall_bcg.png</file>
+    <file>assets/svg/file_open.svg</file>
+    <file>assets/svg/lumos_icon.svg</file>
     <file>assets/svg/no_emotion.svg</file>
-    <file>assets/svg/settings.svg</file>
     <file>assets/svg/search.svg</file>
+    <file>assets/svg/settings.svg</file>
+  </qresource>
+  <qresource prefix="backgrounds">
+    <file>assets/backgrounds/wall_bcg.png</file>
   </qresource>
 </RCC>

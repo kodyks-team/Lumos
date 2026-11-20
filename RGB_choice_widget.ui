@@ -32,7 +32,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: url(:/icons/assets/backgrounds/wall_bcg.png);
+   <string notr="true">background: url(:/backgrounds/assets/backgrounds/wall_bcg.png);
 font: 63 10pt &quot;Yu Gothic UI Semibold&quot;;
 color: white;
 padding: 10px 10px;</string>
@@ -54,7 +54,7 @@ padding: 10px 10px;</string>
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QFrame" name="">
+    <widget class="QFrame" name="GlobalFrame">
      <property name="styleSheet">
       <string notr="true"/>
      </property>
@@ -75,7 +75,7 @@ padding: 10px 10px;</string>
        <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="rgb_circle">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -93,7 +93,7 @@ border-radius: 100px;</string>
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="">
+       <widget class="QFrame" name="frame">
         <property name="styleSheet">
          <string notr="true">background: none;
 padding: 0px 0px;</string>
@@ -106,7 +106,7 @@ padding: 0px 0px;</string>
           <number>2</number>
          </property>
          <item row="0" column="0">
-          <widget class="QFrame" name="">
+          <widget class="QFrame" name="Red">
            <property name="styleSheet">
             <string notr="true">background: none;</string>
            </property>
@@ -121,7 +121,7 @@ padding: 0px 0px;</string>
              <number>1</number>
             </property>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QSlider" name="verticalSlider">
+             <widget class="QSlider" name="RedSlider">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -143,7 +143,7 @@ padding: 0px 0px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="RedLable">
               <property name="styleSheet">
                <string notr="true">background-color: none;</string>
               </property>
@@ -156,7 +156,7 @@ padding: 0px 0px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="spinBox_5">
+             <widget class="QSpinBox" name="RedSpinBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -194,7 +194,7 @@ color: black;</string>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QFrame" name="frame_2">
+          <widget class="QFrame" name="Green">
            <property name="styleSheet">
             <string notr="true">background: none;</string>
            </property>
@@ -209,7 +209,7 @@ color: black;</string>
              <number>1</number>
             </property>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QSlider" name="verticalSlider_3">
+             <widget class="QSlider" name="GreenlSlider">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -231,7 +231,7 @@ color: black;</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="GreeenLable">
               <property name="styleSheet">
                <string notr="true">background-color: none;</string>
               </property>
@@ -244,7 +244,7 @@ color: black;</string>
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="spinBox_3">
+             <widget class="QSpinBox" name="GreenSpinBox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -282,7 +282,7 @@ color: black;</string>
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QFrame" name="frame">
+          <widget class="QFrame" name="Blue">
            <property name="styleSheet">
             <string notr="true">background: none;</string>
            </property>
@@ -297,7 +297,7 @@ color: black;</string>
              <number>1</number>
             </property>
             <item alignment="Qt::AlignHCenter">
-             <widget class="QSlider" name="verticalSlider_2">
+             <widget class="QSlider" name="BlueSlider">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -319,7 +319,7 @@ color: black;</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="BlueLable">
               <property name="styleSheet">
                <string notr="true">background-color: none;</string>
               </property>
@@ -332,7 +332,7 @@ color: black;</string>
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="spinBox_2">
+             <widget class="QSpinBox" name="BlueSpinBox">
               <property name="layoutDirection">
                <enum>Qt::LeftToRight</enum>
               </property>
@@ -364,7 +364,7 @@ color: black;</string>
           </widget>
          </item>
          <item row="1" column="0" colspan="3">
-          <widget class="QLineEdit" name="lineEdit">
+          <widget class="QLineEdit" name="HEXcolor">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -399,12 +399,12 @@ color: black;</string>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,2,1">
+       <layout class="QHBoxLayout" name="Buttons" stretch="1,2,1">
         <property name="spacing">
          <number>10</number>
         </property>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="Ok">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -417,7 +417,7 @@ color: black;</string>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="Commit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -430,7 +430,7 @@ color: black;</string>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="Cancle">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>

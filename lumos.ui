@@ -163,8 +163,8 @@ background-color: rgba(50, 50, 50, 90);
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="../Lumos/lumos.qrc">
-                <normaloff>:/icons/assets/svg/settings.svg</normaloff>:/icons/assets/svg/settings.svg</iconset>
+               <iconset resource="lumos.qrc">
+                <normaloff>:/svg_icons/assets/svg/settings.svg</normaloff>:/svg_icons/assets/svg/settings.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -294,7 +294,7 @@ border-radius: 10px;</string>
            </spacer>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="ChatLayoutH" stretch="1,60,1">
+           <layout class="QHBoxLayout" name="ChatLayoutH" stretch="1,0,1">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -317,7 +317,7 @@ border-radius: 10px;</string>
                <number>0</number>
               </property>
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#383838;&quot;&gt;Чат пока-что не открыт &lt;/span&gt;&lt;img src=&quot;:/icons/assets/svg/no_emotion.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#383838;&quot;&gt;Чат пока-что не открыт &lt;/span&gt;&lt;img src=&quot;:/svg_icons/assets/svg/no_emotion.svg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -363,6 +363,7 @@ border-radius: 10px;</string>
  </widget>
  <resources>
   <include location="../Lumos/lumos.qrc"/>
+  <include location="lumos.qrc"/>
  </resources>
  <connections/>
 </ui>
